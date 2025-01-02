@@ -20,9 +20,10 @@ steps lesson 03
 6. export the state values
 7. update PostList.jsx
    - get all posts values from postsSlice.js
-   - use useEffect the fetchPosts using dipatch when postsStatus is idle
+   - use useEffect to fetchPosts using dipatch when postsStatus is idle
    - create variable content
    - update content based on postsStatus
+   - create PostsExcerpt
 7. create addNewPost
 8. update extraReducers
 9. update AddPost.jsx
