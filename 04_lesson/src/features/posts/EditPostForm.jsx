@@ -37,8 +37,6 @@ const EditPostForm = () => {
 
     const canSave =
         [title, content, userId].every(Boolean) && editStatus === "idle";
-    console.log("editStatus: ", editStatus);
-    console.log("canSave: ", canSave);
 
     const onSavePostClicked = async () => {
         if (canSave) {
