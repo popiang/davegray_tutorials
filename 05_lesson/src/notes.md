@@ -83,5 +83,8 @@ step lesson 05
 9. update Header.jsx
 	- get count by calling getCount
 	- add button below ul to increase count by calling increaseCount
+10. in postsSlice.js, create selectPostsByUser using createSelector
+11. use it in UserPage.jsx to get values for postsForUser
+12. check if performance has been improved
 
 
