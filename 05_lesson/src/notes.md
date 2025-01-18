@@ -86,5 +86,12 @@ step lesson 05
 10. in postsSlice.js, create selectPostsByUser using createSelector
 11. use it in UserPage.jsx to get values for postsForUser
 12. check if performance has been improved
+13. time to do normaliazation in redux
+14. do changes in postsSlice.js, there are quite a number of changes, so refer the finished sample
+15. then do changes in PostsList to take advantage of the above changes
+16. then do changes in PostsExcerpt to receive only the postId and the call selectpostbyid to get the post
+17. test again to see the improvement
+
+
 
 

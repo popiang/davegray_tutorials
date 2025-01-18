@@ -4,14 +4,16 @@ import {
     fetchPosts,
     getFetchStatus,
     getPostsError,
-    selectAllPosts,
+    // selectAllPosts,
+	selectPostIds,
 } from "./postsSlice";
 import PostsExcerpt from "./PostsExcerpt";
 
 const PostsList = () => {
     const dispatch = useDispatch();
 
-    const posts = useSelector(selectAllPosts);
+    // const posts = useSelector(selectAllPosts);
+	const orderedPostIds = useSelector(selectPostIds);
     const fetchStatus = useSelector(getFetchStatus);
     const postsError = useSelector(getPostsError);
 
@@ -25,12 +27,16 @@ const PostsList = () => {
     if (fetchStatus === "loading") {
         content = <p>Loading...</p>;
     } else if (fetchStatus === "succeeded") {
-        const orderedPosts = posts
-            .slice()
-            .sort((a, b) => b.date.localeCompare(a.date));
+        // const orderedPosts = posts
+        //     .slice()
+        //     .sort((a, b) => b.date.localeCompare(a.date));
 
-        content = orderedPosts.map((post) => (
-            <PostsExcerpt key={post.id} post={post} />
+        // content = orderedPosts.map((post) => (
+        //     <PostsExcerpt key={post.id} post={post} />
+        // ));
+
+		content = orderedPostIds.map((postId) => (
+            <PostsExcerpt key={postId} postId={postId} />
         ));
     } else if (fetchStatus === "failed") {
         content = <p>{postsError}</p>;
