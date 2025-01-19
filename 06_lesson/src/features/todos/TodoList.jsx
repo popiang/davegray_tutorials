@@ -64,7 +64,16 @@ const TodoList = () => {
                                 })
                             }
                         />
-                        <label htmlFor={todo.id}>{todo.title}</label>
+                        <label
+                            htmlFor={todo.id}
+                            style={{
+                                textDecoration: todo.completed
+                                    ? "line-through"
+                                    : "",
+                            }}
+                        >
+                            {todo.title}
+                        </label>
                     </div>
                     <button
                         className="trash"
