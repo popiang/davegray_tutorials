@@ -14,7 +14,7 @@ export const apiSlice = createApi({
             query: (todo) => ({
                 url: "/todos",
                 method: "POST",
-                body: { ...todo, id: String(Date.now()) },
+                body: {...todo, id: String(Date.now())},
             }),
             invalidatesTags: ["Todos"],
         }),

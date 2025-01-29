@@ -76,6 +76,7 @@ const TodoList = () => {
                             }}
                         >
                             {todo.title}
+							{todo.id}
                         </label>
                     </div>
                     <button

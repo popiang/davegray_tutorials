@@ -53,6 +53,7 @@ input[type="checkbox"] {
     color: #fff;
     border: none;
 	border-radius: 8px;
+	cursor: pointer;
 }
 
 .new-todo input {

@@ -1,10 +1,7 @@
-function App() {
+import TodoList from "./features/todos/TodoList";
 
-  return (
-    <>
-     
-    </>
-  )
+function App() {
+    return <TodoList />;
 }
 
-export default App
+export default App;
