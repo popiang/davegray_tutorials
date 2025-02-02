@@ -16,7 +16,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
                 let min = 1;
                 const loadedPosts = responseData.map((post) => {
                     if (!post?.date)
-                        post.data = sub(new Date(), {
+                        post.date = sub(new Date(), {
                             minutes: min++,
                         }).toISOString();
                     if (!post?.reactions)
