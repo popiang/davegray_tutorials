@@ -1,24 +1,24 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import {
-    deletePost,
-    getDeleteStatus,
-    getEditStatus,
     selectPostById,
-    updatePost,
+    useDeletePostMutation,
+    useUpdatePostMutation,
 } from "./postsSlice";
 import { selectAllUsers } from "../users/usersSlice";
 import { useState } from "react";
 
 const EditPostForm = () => {
+    const [updatePost, { isLoading: isUpdateLoading }] =
+        useUpdatePostMutation();
+    const [deletePost, { isLoading: isDeleteLoading }] =
+        useDeletePostMutation();
+
     const { postId } = useParams();
+    const navigate = useNavigate();
+
     const post = useSelector((state) => selectPostById(state, Number(postId)));
     const users = useSelector(selectAllUsers);
-    const editStatus = useSelector(getEditStatus);
-	const deleteStatus = useSelector(getDeleteStatus);
-
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     const [title, setTitle] = useState(post?.title);
     const [content, setContent] = useState(post?.body);
@@ -38,22 +38,18 @@ const EditPostForm = () => {
         </option>
     ));
 
-    const canSave =
-        [title, content, userId].every(Boolean) && editStatus === "idle";
+    const canSave = [title, content, userId].every(Boolean) && !isUpdateLoading;
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         if (canSave) {
-            dispatch(
-                updatePost({
-                    id: postId,
-                    title,
-                    body: content,
-                    userId,
-                    reactions: post.reactions,
-                })
-            )
+            updatePost({
+                id: postId,
+                title,
+                body: content,
+                userId,
+            })
                 .unwrap()
                 .then(() => {
                     setTitle("");
@@ -69,7 +65,7 @@ const EditPostForm = () => {
     };
 
     const handleDeletePost = () => {
-        dispatch(deletePost(post))
+        deletePost(post)
             .unwrap()
             .then(() => {
                 setTitle("");
@@ -127,8 +123,8 @@ const EditPostForm = () => {
                     <button
                         onClick={handleDeletePost}
                         className="delete-post-button"
-						type="button"
-						disabled={deleteStatus !== "idle"}
+                        type="button"
+                        disabled={isDeleteLoading}
                     >
                         Delete
                     </button>

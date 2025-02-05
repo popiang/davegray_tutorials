@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addNewPost, getAddStatus } from "./postsSlice";
+import { useSelector } from "react-redux";
+import { useAddNewPostMutation } from "./postsSlice";
 import { selectAllUsers } from "../users/usersSlice";
 import { useNavigate } from "react-router-dom";
 
 const AddPost = () => {
-    const dispatch = useDispatch();
-	const navigate = useNavigate();
-    const addStatus = useSelector(getAddStatus);
+    const [addNewPost, { isLoading }] = useAddNewPostMutation();
+
+    const navigate = useNavigate();
     const users = useSelector(selectAllUsers);
 
     const [title, setTitle] = useState("");
@@ -15,20 +15,20 @@ const AddPost = () => {
     const [userId, setUserId] = useState("");
 
     const canSave =
-        [title, content, userId].every(Boolean) && addStatus === "idle";
+        [title, content, userId].every(Boolean) && !isLoading;
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         if (canSave) {
-            dispatch(addNewPost({ title, body: content, userId }))
+            addNewPost({ title, body: content, userId })
                 .unwrap()
                 .then(() => {
                     setTitle("");
                     setContent("");
                     setUserId("");
 
-					navigate("/");
+                    navigate("/");
                 })
                 .catch((error) => {
                     console.log("Failed to save the post: ", error);

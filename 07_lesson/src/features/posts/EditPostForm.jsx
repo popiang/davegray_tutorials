@@ -7,7 +7,8 @@ import { useUpdatePostMutation, useDeletePostMutation } from "./postsSlice";
 
 const EditPostForm = () => {
     const [updatePost, { isLoading }] = useUpdatePostMutation();
-    const [deletePost, {isLoading: isDeleteLoading}] = useDeletePostMutation();
+    const [deletePost, { isLoading: isDeleteLoading }] =
+        useDeletePostMutation();
 
     const { postId } = useParams();
     const navigate = useNavigate();
