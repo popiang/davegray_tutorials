@@ -64,25 +64,3 @@ step lesson 04
 13. style the whole things first
 14. create deletePost function in postsSlice
 15. add delete post button in EditPostForm
-
-step lesson 07
-
-1. get db.json file and put in data folder
-2. run json-server
-3. create features/api/apiSlice.js
-4. in postsSlice.js, delete unnecessory code
-5. import apiSlice
-6. create extendedApiSlice getPosts and export a couple of hooks
-7. in store.js, replace postsreducer with apiSlice.reducer and add the middleware
-8. in index.jsx, amend the store to dispatch extendedApiSlice
-9. in PostsList.jsx, call useGetPostsQuery to get all the states, and then make all the required changes
-10. in PostAuthor.jsx, add link to author.name
-11. in postsSlice, add getPostsByUserId, addNewPost, updatePost and deletePost and export them
-12. in AddPost.jsx, bring the useAddNewPostMutation and do the required changes
-13. in EditPostForm.jsx, bring useUpdatePostMutation and useDeletePostMutation and do the required changes
-14. in UserPage.jsx, bring in useGetPostsByUserIdQuery and do the required changes
-15. in Header.jsx, remove increment features and everything related to it
-16. back in postsSlice.js, addReaction. this is a bit long and complicated, refer finished code
-17. in ReactionsButtons.jsx, bring in useAddReactionMutation and do all the required changes
-
-

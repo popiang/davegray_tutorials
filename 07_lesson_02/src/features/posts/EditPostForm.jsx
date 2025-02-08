@@ -1,21 +1,24 @@
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { selectPostById } from "./postsSlice";
 import { selectAllUsers } from "../users/usersSlice";
 import { useState } from "react";
-import { useUpdatePostMutation, useDeletePostMutation } from "./postsSlice";
+import {
+    selectPostById,
+    useDeletePostMutation,
+    useUpdatePostMutation,
+} from "./postsSlice";
 
 const EditPostForm = () => {
-    const [updatePost, { isLoading }] = useUpdatePostMutation();
-    const [deletePost, { isLoading: isDeleteLoading }] =
-        useDeletePostMutation();
-
-    const { postId } = useParams();
     const navigate = useNavigate();
+    const { postId } = useParams();
 
     const post = useSelector((state) => selectPostById(state, Number(postId)));
     const users = useSelector(selectAllUsers);
 
+    const [updatePost, { isLoading: isUpdateLoading }] =
+        useUpdatePostMutation();
+    const [deletePost, { isLoading: isDeleteLoading }] =
+        useDeletePostMutation();
     const [title, setTitle] = useState(post?.title);
     const [content, setContent] = useState(post?.body);
     const [userId, setUserId] = useState(post?.userId);
@@ -34,14 +37,19 @@ const EditPostForm = () => {
         </option>
     ));
 
-    const canSave =
-        [title, content, userId].every(Boolean) && !isLoading;
+    const canSave = [title, content, userId].every(Boolean) && !isUpdateLoading;
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         if (canSave) {
-            updatePost({ id: post.id, title, body: content, userId })
+            updatePost({
+                id: postId,
+                title,
+                body: content,
+                userId,
+                reactions: post.reactions,
+            })
                 .unwrap()
                 .then(() => {
                     setTitle("");
@@ -57,7 +65,7 @@ const EditPostForm = () => {
     };
 
     const handleDeletePost = () => {
-        deletePost({ id: post.id })
+        deletePost(post)
             .unwrap()
             .then(() => {
                 setTitle("");
