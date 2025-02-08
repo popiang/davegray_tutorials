@@ -22,7 +22,7 @@ const ReactionsButtons = ({ post }) => {
                         const newValue = post.reactions[name] + 1;
                         addReaction({
                             postId: post.id,
-                            reaction: { ...post.reactions, [name]: newValue },
+                            reactions: { ...post.reactions, [name]: newValue },
                         });
                     }}
                 >
